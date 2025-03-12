@@ -967,7 +967,7 @@ static int __maybe_unused init_zcd(struct device *dev)
 	if (micfil->vad_zcd_auto) {
 		/* Zero-Crossing Detector Adjustment */
 		ret = regmap_update_bits(micfil->regmap, REG_MICFIL_VAD0_ZCD,
-					 MICFIL_VAD0_ZCD_ZCDADJ,
+					 MICFIL_VAD0_ZCD_ZCDADJ_SHIFT,
 					 micfil->vad_zcd_adj);
 		if (ret) {
 			dev_err(dev,
@@ -1271,7 +1271,7 @@ static int __maybe_unused init_hwvad(struct device *dev)
 
 	/* configure CIC OSR in VADCICOSR */
 	ret = regmap_update_bits(micfil->regmap, REG_MICFIL_VAD0_CTRL1,
-				 MICFIL_VAD0_CTRL1_CICOSR,
+				 MICFIL_VAD0_CTRL1_CICOSR_SHIFT,
 				 MICFIL_CTRL2_OSR_DEFAULT);
 	if (ret) {
 		dev_err(dev, "Failed to set CICOSR in CTRL1_VAD0i [%d]\n", ret);
@@ -1279,9 +1279,9 @@ static int __maybe_unused init_hwvad(struct device *dev)
 	}
 
 	/* configure source channel in VADCHSEL */
-	reg_val = MICFIL_VAD0_CTRL1_CHSEL(micfil->vad_channel);
+	reg_val = MICFIL_VAD0_CTRL1_CHSEL_SHIFT(micfil->vad_channel);
 	ret = regmap_update_bits(micfil->regmap, REG_MICFIL_VAD0_CTRL1,
-				 MICFIL_VAD0_CTRL1_CHSEL,
+				 MICFIL_VAD0_CTRL1_CHSEL_SHIFT,
 				 reg_val);
 	if (ret) {
 		dev_err(dev, "Failed to set CHSEL in CTRL1_VAD0 [%d]\n", ret);
@@ -1299,9 +1299,9 @@ static int __maybe_unused init_hwvad(struct device *dev)
 	}
 
 	/* configure initialization time in VADINITT */
-	reg_val = MICFIL_VAD0_CTRL1_INITT(micfil->vad_init_time);
+	reg_val = MICFIL_VAD0_CTRL1_INITT_SHIFT(micfil->vad_init_time);
 	ret = regmap_update_bits(micfil->regmap, REG_MICFIL_VAD0_CTRL1,
-				 MICFIL_VAD0_CTRL1_INITT,
+				 MICFIL_VAD0_CTRL1_INITT_SHIFT,
 				 reg_val);
 	if (ret) {
 		dev_err(dev, "Failed to set INITT in CTRL1_VAD0 [%d]\n", ret);
