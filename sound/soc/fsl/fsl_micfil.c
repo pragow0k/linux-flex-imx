@@ -3,6 +3,7 @@
 
 #include <linux/atomic.h>
 #include <linux/bitfield.h>
+#include <linux/bits.h>
 #include <linux/clk.h>
 #include <linux/device.h>
 #include <linux/interrupt.h>
